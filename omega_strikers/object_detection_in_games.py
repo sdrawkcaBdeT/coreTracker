@@ -1,7 +1,7 @@
 import cv2 as cv2
 import numpy as np
 
-haystack = cv2.imread('omega_strikers/find_the_core.jpg')
+haystack = cv2.imread('omega_strikers/scenario_01_img_02005.jpg')
 grayhaystack = cv2.cvtColor(haystack, cv2.COLOR_BGR2GRAY)
 
 needle = cv2.imread('omega_strikers/os_core.jpg')
@@ -25,4 +25,4 @@ cv2.imshow('Result', result)
 cv2.imshow('output', output)
 cv2.waitKey(0)
 
-cv2.imwrite('haystack_needle.png', output)
+cv2.imwrite('haystack_needle_scen_01_02005.png', output)
