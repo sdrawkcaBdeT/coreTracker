@@ -36,4 +36,5 @@ cv2.imwrite('haystack_needle_scen_02_02.png', output)
 # Then layer in core location, user strikes, goals, and eventually ability usuage
 # How to build this into a system...
 # One though already is to have have same video processed with different 'needle' images (needles=All Strikers, to track striker location and sense who was in game. To do so would require a separate needle image of the striker to process the video, unless there's a way to sense mutiple objects in frame and denote they are different through the current framework)
-# 
+
+# Need to fix code from other repo that attempted continuous stream stuff - need working continous stream of images to process. Need to demark events. Need whole data processing structure for an os game tbh
