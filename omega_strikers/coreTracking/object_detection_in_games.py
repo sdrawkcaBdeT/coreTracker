@@ -1,13 +1,18 @@
 import cv2 as cv2
 import numpy as np
 
+# name of the file for the image to act as the haystack (img with desired object to find)
+haystack_filename='scenario03_haystack02'
+haystack_filetype='.jpg'
+haystack_filepath='omega_strikers/coreTracking/img/haystacks/'
+
 # Define haystack (image to find the needle in)
-haystack = cv2.imread('omega_strikers/coreTracker/img/haystacks/scenario00_haystack00.jpg')
+haystack = cv2.imread(haystack_filepath+haystack_filename+haystack_filetype)
 # grayscale transformation
 grayhaystack = cv2.cvtColor(haystack, cv2.COLOR_BGR2GRAY)
 
 # Define the needle (image of os core in this case)
-needle = cv2.imread('omega_strikers/os_core.jpg')
+needle = cv2.imread('omega_strikers/coreTracking/img/needle/os_core.jpg')
 # grayscale transformation
 grayneedle =cv2.cvtColor(needle, cv2.COLOR_BGR2GRAY)
 
@@ -40,8 +45,10 @@ output = cv2.rectangle(haystack, top_left, bottom_right, (0, 0, 255), 3)
 cv2.imshow('output', output)
 cv2.waitKey(0)
 
+
+
 # Write output image
-cv2.imwrite('haystack_needle_scen_02_02.png', output)
+cv2.imwrite('omega_strikers/coreTracking/img/searched/searched_{}.png'.format(haystack_filename), output)
 
 # Might need different core for when it turns red
 # How to note when goal is scored
