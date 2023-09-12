@@ -2,8 +2,8 @@ import cv2 as cv
 import numpy as np
 import os
 from time import time
-from windowcapture import WindowCapture
-from vision import Vision
+from omega_strikers.realtime.windowcapture import WindowCapture
+from omega_strikers.realtime.vision import Vision
 
 # Change the working directory to the folder this script is in.
 # Doing this because I'll be putting the files from each video in their own folder on GitHub
@@ -11,7 +11,7 @@ os.chdir(os.path.dirname(os.path.abspath('realtime')))
 
 
 # initialize the WindowCapture class
-wincap = WindowCapture('OmegaStrikers  ')
+wincap = WindowCapture()
 # initialize the Vision class
 vision_core = Vision('omega_strikers/realtime/os_core.jpg')
 
@@ -27,8 +27,9 @@ while(True):
     # get an updated image of the game
     screenshot = wincap.get_screenshot()
 
+   
     # display the processed image
-    points = vision_core.find(screenshot, 0.5, 'rectangles')
+    points = vision_core.find(screenshot, 0.30, 'rectangles')
     #points = vision_gunsnbottle.find(screenshot, 0.7, 'points')
 
     # debug the loop rate

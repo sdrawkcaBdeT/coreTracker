@@ -74,7 +74,7 @@ awakenings_found = 0
 
 for awakening in LIST_AWAKENINGS:
    
-    haystack_filename="draft00"
+    haystack_filename="draft01"
     haystack_filetype='.png'
     haystack_filepath='omega_strikers/awakeningPool/img/haystacks/'
 
