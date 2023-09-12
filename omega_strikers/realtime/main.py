@@ -15,12 +15,6 @@ wincap = WindowCapture()
 # initialize the Vision class
 vision_core = Vision('omega_strikers/realtime/os_core.jpg')
 
-'''
-# https://www.crazygames.com/game/guns-and-bottle
-wincap = WindowCapture()
-vision_gunsnbottle = Vision('gunsnbottle.jpg')
-'''
-
 loop_time = time()
 while(True):
 
