@@ -1,6 +1,7 @@
 import cv2 as cv2
 import numpy as np
 import pandas as pd
+import time as time
 
 # Goal here is to support the awakening draft phase of the game by displaying what awakening are available in the pool still.
 
@@ -72,62 +73,66 @@ df_awakening_status = pd.DataFrame({'AWAKENING':LIST_AWAKENINGS})
 df_awakening_status['STATUS'] = 'AVAILABLE'
 awakenings_found = 0
 
-for awakening in LIST_AWAKENINGS:
-   
-    haystack_filename="draft01"
-    haystack_filetype='.png'
-    haystack_filepath='omega_strikers/awakeningPool/img/haystacks/'
-
-    # Define haystack (image to find the needle in)
-    haystack = cv2.imread(haystack_filepath+haystack_filename+haystack_filetype)
-    # grayscale transformation
-    grayhaystack = cv2.cvtColor(haystack, cv2.COLOR_BGR2GRAY)
+# this must run continuously, so I'm putting it in a while loop that causes the code to run until at least the
+# first two awakenings drafts have been completed.
+while awakenings_found >= 18:    
+    time.sleep(15) # sleep for fifteen seconds before re-running    
+    for awakening in LIST_AWAKENINGS:
     
-    # Define the needle 
-    needle = cv2.imread('omega_strikers/awakeningPool/img/needle/{}.png'.format(awakening))
-    # grayscale transformation
-    grayneedle =cv2.cvtColor(needle, cv2.COLOR_BGR2GRAY)
+        haystack_filename="draft00"
+        haystack_filetype='.png'
+        haystack_filepath='omega_strikers/awakeningPool/img/haystacks/'
 
-    # # Uncomment to show image
-    # cv2.imshow('Needle', needle)
-    # cv2.waitKey(0)
-
-    # # Uncomment to show image
-    # cv2.imshow('Haystack', haystack)
-    # cv2.waitKey(0)
-
-    #methods available :[cv2.TM_CCOEFF, cv2.TM_CCOEFF_NORMED, cv2.TM_CCORR, cv2.TMO_CCORR_NORMED, cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]
-    result = cv2.matchTemplate(grayhaystack, grayneedle, cv2.TM_CCOEFF_NORMED)
-
-    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-    needle_w = needle.shape[1]
-    needle_h = needle.shape[0]
-    top_left = max_loc
-    bottom_right = (top_left[0] + needle_w, top_left[1] + needle_h)
-    output = cv2.rectangle(haystack, top_left, bottom_right, (0, 0, 255), 3)
-    
-    # # Show haystack gray
-    # cv2.imshow('Haystack', grayhaystack)
-
-    # # Show transformed image
-    # cv2.imshow('Result', result)
-
-    # Show image with 'needle' found (if not found there will be no bounding box)
-    # cv2.imshow('output', output)
-    # cv2.waitKey(0)
-
-
-
+        # Define haystack (image to find the needle in)
+        haystack = cv2.imread(haystack_filepath+haystack_filename+haystack_filetype)
+        # grayscale transformation
+        grayhaystack = cv2.cvtColor(haystack, cv2.COLOR_BGR2GRAY)
         
-    if max_val >= .8:
-        print('found.')
-        awakenings_found = awakenings_found + 1
-        df_awakening_status.loc[df_awakening_status['AWAKENING']==awakening,"STATUS"]="NOT AVAILABLE"        
-        # Write output image
-        cv2.imwrite('omega_strikers/awakeningPool/img/searched/searched_{}.png'.format(awakening), output)
+        # Define the needle 
+        needle = cv2.imread('omega_strikers/awakeningPool/img/needle/{}.png'.format(awakening))
+        # grayscale transformation
+        grayneedle =cv2.cvtColor(needle, cv2.COLOR_BGR2GRAY)
+
+        # # Uncomment to show image
+        # cv2.imshow('Needle', needle)
+        # cv2.waitKey(0)
+
+        # # Uncomment to show image
+        # cv2.imshow('Haystack', haystack)
+        # cv2.waitKey(0)
+
+        #methods available :[cv2.TM_CCOEFF, cv2.TM_CCOEFF_NORMED, cv2.TM_CCORR, cv2.TMO_CCORR_NORMED, cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]
+        result = cv2.matchTemplate(grayhaystack, grayneedle, cv2.TM_CCOEFF_NORMED)
+
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+        needle_w = needle.shape[1]
+        needle_h = needle.shape[0]
+        top_left = max_loc
+        bottom_right = (top_left[0] + needle_w, top_left[1] + needle_h)
+        output = cv2.rectangle(haystack, top_left, bottom_right, (0, 0, 255), 3)
         
-    else:
-        print('not found')
+        # # Show haystack gray
+        # cv2.imshow('Haystack', grayhaystack)
+
+        # # Show transformed image
+        # cv2.imshow('Result', result)
+
+        # Show image with 'needle' found (if not found there will be no bounding box)
+        # cv2.imshow('output', output)
+        # cv2.waitKey(0)
+
+
+
+            
+        if max_val >= .8:
+            print('found.')
+            awakenings_found = awakenings_found + 1
+            df_awakening_status.loc[df_awakening_status['AWAKENING']==awakening,"STATUS"]="NOT AVAILABLE"        
+            # Write output image
+            cv2.imwrite('omega_strikers/awakeningPool/img/searched/found/{}.png'.format(awakening), output)
+            
+        else:
+            print('not found')
         
 
 awakenings_found
