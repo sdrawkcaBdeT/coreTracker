@@ -1,0 +1,40 @@
+# Environmental variables supporting awakening pool status
+
+# Here's a list of the currently in-play awakenings:
+
+LIST_AWAKENINGS = list((
+    'SPECIALIZED TRAINING',
+    'RAPID FIRE',
+    'MISSILE PROPULSION',
+    'TWIN DRIVE',
+    'SUPER SURGE',
+    'CAST TO LAST',
+    'MONUMENTALIST',
+    'PRIMETIME',
+    'HOTSHOT',
+    'BUILT DIFFERENT',
+    'EXTRA SPECIAL',
+    'TIMELESS CREATOR',
+    'TEMPO SWING',
+    'CHRONOBOOST',
+    'BIG FISH',
+    'HEAVY IMPACT',
+    'PEAK PERFORMANCE',
+    'BULK UP',
+    'AERIALS',
+    'QUICK STRIKE',
+    'REVERBERATION',
+    'GLASS CANNON',
+    'STACKS ON STACKS',
+    'DEADEYE',
+    'ORB DANCER',
+    'ORB PONDERER',
+    'ORB REPLICATOR',
+    'EGOIST',
+    'CATALYST',
+    'FIRE UP!',
+    'STAGGER SWAGGER',
+    'ONE-TWO PUNCH',
+    'PRIZE FIGHTER',
+    'PERFECT FORM',)
+)
