@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk
 
+# TODO: Tie object detection to gui display
+
 class ImageViewer:
     def __init__(self, root):
         self.root = root

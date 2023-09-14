@@ -42,7 +42,7 @@ wincap = WindowCapture()
 
 # this must run continuously, so I'm putting it in a while loop that causes the code to run until at least the
 # first two awakenings drafts have been completed.
-while awakenings_found <= 3:    
+while awakenings_found <=8:    
     time.sleep(5) # sleep for fifteen seconds before re-running  
     df_awakening_status # show awakening status before loop run  
     for awakening in LIST_AWAKENINGS:
@@ -75,23 +75,19 @@ while awakenings_found <= 3:
         if max_val >= .8:
             print('found.')
             
-            if df_awakening_status.loc[df_awakening_status['AWAKENING']==awakening,].STATUS=="NOT AVAILABLE":
+            if df_awakening_status.loc[df_awakening_status['AWAKENING']==awakening,'STATUS'].values[0] =="NOT AVAILABLE":
                 print('found awakening has already been found before... going to next check.')
                 # awakenings_found = awakenings_found # don't chg no. of awk found if awk has been found before
             else: # if newly found
-                print(print('found awakening is new... updating awakening status and count.'))
+                print('found awakening is new... updating awakening status and count.')
                 # update status to not available
                 df_awakening_status.loc[df_awakening_status['AWAKENING']==awakening,"STATUS"]="NOT AVAILABLE"
                 # add to the awakenings found counter
                 awakenings_found = awakenings_found + 1
                        
-            
             # Write output image
             # cv2.imwrite('omega_strikers/awakeningPool/img/searched/found/{}.png'.format(awakening), output)
-            
-        else:
-            print('not found')
-        
+    
 
 
 
